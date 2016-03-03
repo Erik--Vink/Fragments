@@ -1,66 +1,109 @@
 package com.example.erik.fragments;
 
-import com.example.erik.fragments.ListFragment.OnURLSelectedListener;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements OnURLSelectedListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+    private boolean mHasOnePane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("AndroidFragmentActivity", "onCreate()");
-        Log.v("FragSavedInstanceState", savedInstanceState == null ? "true" : "false");
 
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ListFragment listFragment = new ListFragment();
-            ft.add(R.id.displayList, listFragment, "List_Fragment");
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.commit();
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        if(findViewById(R.id.displayDetail) != null){
-            detailPage = true;
-            getFragmentManager().popBackStack();
-
-            DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.displayDetail);
-            if(detailFragment == null){
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                detailFragment = new DetailFragment();
-                ft.replace(R.id.displayDetail, detailFragment, "Detail_Fragment1");
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                ft.commit();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
-        }
-    }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    boolean detailPage = false;
+//        mHasOnePane = findViewById(R.id.container) != null;
+//
+//        if (mHasOnePane) {
+//            FragmentManager fm = getFragmentManager();
+//            if (fm.findFragmentByTag("list") == null) {
+//                // add list fragment
+//                FragmentTransaction trx = fm.beginTransaction();
+//                trx.add(R.id.container, new ListFragment(), "list");
+//                trx.commit();
+//            }
+//        } // else, layout handles it
+
+//        if (savedInstanceState != null) {
+//            mLastSelectedLink = savedInstanceState.getString("selectedLink", null);
+//            onRssItemSelected(mLastSelectedLink);
+//        }
+
+    }
 
     @Override
-    public void onURLSelected(String URL) {
-        Log.v("AndroidFragmentActivity",URL);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
+        TextView textView = (TextView) view;
 
-        if(detailPage){
-            DetailFragment detailFragment = (DetailFragment)
-                    getFragmentManager().findFragmentById(R.id.displayDetail);
-            detailFragment.updateURLContent(URL);
+        if (fragment != null && fragment.isInLayout())
+        {
+            fragment.setNewText((String) textView.getText());
         }
-        else{
-            DetailFragment detailFragment = new DetailFragment();
-            detailFragment.setURLContent(URL);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.displayList, detailFragment, "Detail_Fragment2");
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.addToBackStack(null);
-            ft.commit();
+        else
+        {
+            Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            intent.putExtra("SelectedLink", textView.getText());
+            startActivity(intent);
         }
     }
+
+
+//    @Override
+//    public void onSportItemSelected(String link) {
+//
+////        if (mHasOnePane) {
+////
+//            FragmentManager fm = getFragmentManager();
+//            DetailFragment detailFragment = (DetailFragment) fm.findFragmentByTag("detail");
+////
+//            if (detailFragment == null) {
+//                // create and initialize fragment
+//                detailFragment = new DetailFragment();
+//
+//                // configure link
+//                Bundle bundle = new Bundle();
+//                bundle.putString("link", link);
+//                detailFragment.setArguments(bundle);
+//
+//                // add fragment
+//                FragmentTransaction trx = fm.beginTransaction();
+//                trx.replace(R.id.container, detailFragment, "detail");
+//                trx.addToBackStack(null);
+//                trx.commit();
+//
+//            } else {
+////
+////                detailFragment.getArguments().putString("link", link);
+////            }
+////
+////        } else {
+////
+////            DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
+////            fragment.setNewText(link);
+////        }
+//
+//    }
 
 }

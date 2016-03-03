@@ -12,4 +12,5 @@
         <item>Chess</item>
         <item>Hockey</item>
     </string-array>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

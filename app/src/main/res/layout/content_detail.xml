@@ -7,11 +7,11 @@
     android:orientation="horizontal" >
 
     <fragment
-        android:id="@+id/listFragment"
+        android:id="@+id/detailFragment"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="match_parent"
-        class="com.example.erik.fragments.ListFragment"
-        tools:layout="@layout/list_view"></fragment>
+        android:layout_height="wrap_content"
+        class="com.example.erik.fragments.DetailFragment"
+        tools:layout="@layout/detail_view"></fragment>
 
 </LinearLayout>
