@@ -1,11 +1,16 @@
 package com.example.erik.fragments;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +24,8 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ListFragment extends Fragment {
 
-    private AdapterView.OnItemSelectedListener listener;
+    private ListView listView;
+    private PokemonListAdapter pokemonListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,29 +38,48 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ListView listview = (ListView) getView().findViewById(R.id.sportsList);
-        listview.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
+        listView = (ListView) getView().findViewById(R.id.pokemon_list);
+        pokemonListAdapter = new PokemonListAdapter(getActivity(), R.layout.pokemon_list_item, getData());
+        listView.setAdapter(pokemonListAdapter);
+        listView.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
     }
-//
+
+
+    //dummy data
+
+    private ArrayList<PokemonModel> getData() {
+        final ArrayList<PokemonModel> pokemonItems = new ArrayList<>();
+        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
+        String[] images = getResources().getStringArray(R.array.image_ids);
+
+        for(int i = 0; i< imgs.length(); i++) {
+            Log.v("image", images[i]);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
+            pokemonItems.add(new PokemonModel(String.valueOf(i+1),"pokemonName","type", bitmap, null));
+        }
+        return pokemonItems;
+    }
+
+        //
 //    public interface OnItemSelectedListener {
 //        public void onSportItemSelected(String link);
 //    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof AdapterView.OnItemSelectedListener) {
-            listener = (AdapterView.OnItemSelectedListener) context;
-        } else {
-            throw new ClassCastException(context.toString()
-                    + " must implemenet MyListFragment.OnItemSelectedListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof AdapterView.OnItemSelectedListener) {
+//            listener = (AdapterView.OnItemSelectedListener) context;
+//        } else {
+//            throw new ClassCastException(context.toString()
+//                    + " must implemenet MyListFragment.OnItemSelectedListener");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        listener = null;
+//    }
 
 }

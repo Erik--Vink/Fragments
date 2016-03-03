@@ -2,10 +2,12 @@ package com.example.erik.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -55,16 +57,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
-        TextView textView = (TextView) view;
+
+        PokemonModel pokemon = (PokemonModel) parent.getItemAtPosition(position);
+
+//        TextView number = (TextView) view.findViewById(R.id.pokedex_number);
+//        String strNumber = number.getText().toString();
+//        TextView textView = (TextView) view;
 
         if (fragment != null && fragment.isInLayout())
         {
-            fragment.setNewText((String) textView.getText());
+//            fragment.setNewText((String) textView.getText());
+            fragment.setDisplayData(pokemon);
         }
         else
         {
             Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-            intent.putExtra("SelectedLink", textView.getText());
+            intent.putExtra("SelectedPokemon", pokemon);
             startActivity(intent);
         }
     }
