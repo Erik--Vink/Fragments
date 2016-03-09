@@ -30,8 +30,8 @@ public class DetailFragment extends Fragment {
         name.setText(pokemon.getName());
         TextView type = (TextView) view.findViewById(R.id.type);
         type.setText(pokemon.getType());
-        ImageView image = (ImageView) view.findViewById(R.id.image);
-        image.setImageBitmap(pokemon.getImage());
+//        ImageView image = (ImageView) view.findViewById(R.id.image);
+//        image.setImageBitmap(pokemon.getImage());
     }
 
 //    public void setNewText(String url) {

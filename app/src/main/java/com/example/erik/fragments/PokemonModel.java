@@ -6,19 +6,17 @@ import android.os.Parcelable;
 
 public class PokemonModel implements Parcelable {
 
-    private String pokedexNumber;
+    private int pokedexNumber;
     private String name;
     private String type;
-    private Bitmap image;
-    private String imageUrl;
+    private String imgLink;
 
-    public PokemonModel(String number, String name, String type, Bitmap image, String imageUrl){
+    public PokemonModel(int pokedexNumber, String name, String type, String imgLink){
         super();
-        this.pokedexNumber = number;
+        this.pokedexNumber = pokedexNumber;
         this.name = name;
         this.type = type;
-        this.image = image;
-        this.imageUrl = imageUrl;
+        this.imgLink = imgLink;
     }
 
 
@@ -27,11 +25,11 @@ public class PokemonModel implements Parcelable {
         readFromParcel(in);
     }
 
-    public String getPokedexNumber() {
+    public int getPokedexNumber() {
         return pokedexNumber;
     }
 
-    public void setPokedexNumber(String pokedexNumber) {
+    public void setPokedexNumber(int pokedexNumber) {
         this.pokedexNumber = pokedexNumber;
     }
 
@@ -51,25 +49,6 @@ public class PokemonModel implements Parcelable {
         this.type = type;
     }
 
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void getImageByUrl(){
-
-    }
 
     @Override
     public int describeContents() {
@@ -78,10 +57,9 @@ public class PokemonModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.pokedexNumber);
+        dest.writeInt(this.pokedexNumber);
         dest.writeString(this.name);
         dest.writeString(this.type);
-        dest.writeParcelable(this.image, flags);
     }
 
     public void readFromParcel(Parcel in)
@@ -90,10 +68,9 @@ public class PokemonModel implements Parcelable {
         // field in the order that it was
         // written to the parcel
 
-        this.pokedexNumber = in.readString();
+        this.pokedexNumber = in.readInt();
         this.name = in.readString();
         this.type = in.readString();
-        this.image=in.readParcelable(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -112,4 +89,7 @@ public class PokemonModel implements Parcelable {
         }
     };
 
+    public String getImageLink() {
+        return imgLink;
+    }
 }

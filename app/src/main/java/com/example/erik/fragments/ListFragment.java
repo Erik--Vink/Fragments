@@ -49,13 +49,13 @@ public class ListFragment extends Fragment {
 
     private ArrayList<PokemonModel> getData() {
         final ArrayList<PokemonModel> pokemonItems = new ArrayList<>();
-        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
+//        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
         String[] images = getResources().getStringArray(R.array.image_ids);
 
-        for(int i = 0; i< imgs.length(); i++) {
-            Log.v("image", images[i]);
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            pokemonItems.add(new PokemonModel(String.valueOf(i+1),"pokemonName","type", bitmap, null));
+        for(int i = 0; i< images.length; i++) {
+//            Log.v("image", images[i]);
+//            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
+            pokemonItems.add(new PokemonModel((i+1),"pokemonName","type", "https://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/1.jpeg"));
         }
         return pokemonItems;
     }

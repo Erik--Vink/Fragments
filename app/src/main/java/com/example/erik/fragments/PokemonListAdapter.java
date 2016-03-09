@@ -34,17 +34,18 @@ public class PokemonListAdapter extends ArrayAdapter {
             holder.pokedexNumber = (TextView) listItem.findViewById(R.id.pokedex_number);
             holder.name = (TextView) listItem.findViewById(R.id.name);
             holder.type = (TextView) listItem.findViewById(R.id.type);
-            holder.image = (ImageView) listItem.findViewById(R.id.image);
+//            holder.image = (ImageView) listItem.findViewById(R.id.image);
             listItem.setTag(holder);
         }else{
             holder = (ViewHolder) listItem.getTag();
         }
 
         PokemonModel pokemon = (PokemonModel) data.get(position);
-        holder.pokedexNumber.setText(pokemon.getPokedexNumber());
+        holder.pokedexNumber.setText(String.valueOf(pokemon.getPokedexNumber()));
         holder.name.setText(pokemon.getName());
         holder.type.setText(pokemon.getType());
-        holder.image.setImageBitmap(pokemon.getImage());
+
+
 
         return listItem;
     }
