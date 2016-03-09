@@ -55,7 +55,7 @@ public class ListFragment extends Fragment {
         for(int i = 0; i< images.length; i++) {
 //            Log.v("image", images[i]);
 //            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            pokemonItems.add(new PokemonModel((i+1),"pokemonName","type", "https://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/1.jpeg"));
+            pokemonItems.add(new PokemonModel((i+1),"pokemonName","type", "http://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/1.jpeg")); //Geef ALTIJD protocol aan.(http(s))
         }
         return pokemonItems;
     }

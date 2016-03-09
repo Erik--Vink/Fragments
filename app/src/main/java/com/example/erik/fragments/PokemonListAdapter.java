@@ -45,7 +45,11 @@ public class PokemonListAdapter extends ArrayAdapter {
         holder.name.setText(pokemon.getName());
         holder.type.setText(pokemon.getType());
 
-
+        //Here starts the Async magic!
+        DownloadPokeImageTask task = new DownloadPokeImageTask((ImageView) listItem.findViewById(R.id.image));
+        task.execute(pokemon);
+        //Here endeth the demonstration.
+        //Volgens mij kan je async gebruiken voor meer dan alleen images :)
 
         return listItem;
     }
