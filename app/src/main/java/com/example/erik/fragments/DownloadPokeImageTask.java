@@ -10,41 +10,58 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Erik on 9-3-2016.
- */
-public class DownloadPokeImageTask extends AsyncTask<PokemonModel, Void, Bitmap>
+public class DownloadPokeImageTask extends AsyncTask<String, Void, Bitmap>
 {
-    private ImageView view;
+    private final WeakReference<ImageView> imageViewReference;
 
     public DownloadPokeImageTask(ImageView view)
     {
-        this.view = view;
+        imageViewReference = new WeakReference<ImageView>(view);
     }
 
-    protected Bitmap doInBackground(PokemonModel... pokemon)
+    protected Bitmap doInBackground(String... params)
     {
-        Bitmap d = null;
-        PokemonModel current = pokemon[0];
-
-        try {
-            Log.v("Getting image: ", current.getImageLink());
-            URL url = new URL(current.getImageLink());
-            InputStream in = url.openStream(); //it's an image, not a webpage, so just stream it.
-            d = BitmapFactory.decodeStream(in); //which makes this really easy.
-            in.close();
-        } catch ( Exception e) {
-            Log.e("Error in worker thread:", e.getMessage(), e);
-        }
-
-        return d;
+        return downloadBitmap(params[0]);
     }
 
     protected void onPostExecute(Bitmap result)
     {
-        view.setImageBitmap(result);
-        view.postInvalidate();//And wakeup the UI thread to update.
+        if (isCancelled()) {
+            result = null;
+        }
+
+        if(imageViewReference != null){
+            ImageView imageView = imageViewReference.get();
+            if (imageView != null) {
+                if (result != null){
+                    imageView.setImageBitmap(result);
+                }
+                else{
+                    Drawable placeholder = imageView.getContext().getResources().getDrawable(R.drawable.placeholder);
+                    imageView.setImageDrawable(placeholder);                }
+            }
+
+        }
     }
+
+    private Bitmap downloadBitmap(String url) {
+        try {
+            Log.v("Getting image: ", url);
+            URL uri = new URL(url);
+            InputStream inputstream = uri.openStream(); //it's an image, not a webpage, so just stream it.
+            if(inputstream != null){
+                Bitmap bitmap = BitmapFactory.decodeStream(inputstream); //which makes this really easy.
+                return bitmap;
+            }
+        } catch ( Exception e) {
+            Log.e("Error in worker thread:", e.getMessage(), e);
+        }
+
+        return null;
+    }
+
 }

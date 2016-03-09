@@ -24,9 +24,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ListFragment extends Fragment {
 
-    private ListView listView;
-    private PokemonListAdapter pokemonListAdapter;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_view, container, false);
@@ -38,48 +35,18 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        listView = (ListView) getView().findViewById(R.id.pokemon_list);
-        pokemonListAdapter = new PokemonListAdapter(getActivity(), R.layout.pokemon_list_item, getData());
-        listView.setAdapter(pokemonListAdapter);
-        listView.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
+        final ListView listView = (ListView) getView().findViewById(R.id.pokemon_list);
+        listView.setAdapter(new PokemonListAdapter(getActivity(), getData()));
     }
 
-
-    //dummy data
 
     private ArrayList<PokemonModel> getData() {
         final ArrayList<PokemonModel> pokemonItems = new ArrayList<>();
-//        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
-        String[] images = getResources().getStringArray(R.array.image_ids);
 
-        for(int i = 0; i< images.length; i++) {
-//            Log.v("image", images[i]);
-//            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            pokemonItems.add(new PokemonModel((i+1),"pokemonName","type", "http://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/1.jpeg")); //Geef ALTIJD protocol aan.(http(s))
+        for(int i = 0; i< 10; i++) {
+            int pokedexnumber = i+1;
+            pokemonItems.add(new PokemonModel(pokedexnumber,"pokemonName","type", "http://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/"+pokedexnumber+".jpeg")); //Geef ALTIJD protocol aan.(http(s))
         }
         return pokemonItems;
     }
-
-        //
-//    public interface OnItemSelectedListener {
-//        public void onSportItemSelected(String link);
-//    }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof AdapterView.OnItemSelectedListener) {
-//            listener = (AdapterView.OnItemSelectedListener) context;
-//        } else {
-//            throw new ClassCastException(context.toString()
-//                    + " must implemenet MyListFragment.OnItemSelectedListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        listener = null;
-//    }
-
 }
