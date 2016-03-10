@@ -8,9 +8,8 @@
 
     <ListView
         android:id="@+id/pokemon_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/sports_array"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_marginTop="60dp" />
 
 
