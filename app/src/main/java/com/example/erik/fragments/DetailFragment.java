@@ -22,12 +22,12 @@ public class DetailFragment extends Fragment {
     public void setDisplayData(PokemonModel pokemon){
         View view = getView();
 
-        TextView pokedexNumber = (TextView) view.findViewById(R.id.pokedex_number);
-        pokedexNumber.setText(pokemon.getPokedexNumber());
-        TextView name = (TextView) view.findViewById(R.id.name);
-        name.setText(pokemon.getName());
-        TextView type = (TextView) view.findViewById(R.id.type);
-        type.setText(pokemon.getType());
+//        TextView pokedexNumber = (TextView) view.findViewById(R.id.pokedex_number);
+//        pokedexNumber.setText(pokemon.getPokedexNumber());
+//        TextView name = (TextView) view.findViewById(R.id.name);
+//        name.setText(pokemon.getName());
+//        TextView type = (TextView) view.findViewById(R.id.type);
+//        type.setText(pokemon.getType());
 //        ImageView image = (ImageView) view.findViewById(R.id.image);
 //        image.setImageBitmap(pokemon.getImage());
     }

@@ -39,6 +39,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon>{
             holder.imageview = (ImageView) view.findViewById(R.id.ivImage);
             holder.tvPokedexNumber = (TextView) view.findViewById(R.id.tvPokedexNumber);
             holder.tvName = (TextView) view.findViewById(R.id.tvName);
+            holder.tvType = (TextView) view.findViewById(R.id.tvType);
             view.setTag(holder);
         }
         else{
@@ -49,16 +50,18 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon>{
 
         holder.imageview.setImageResource(R.drawable.placeholder);
         new DownloadImageTask(holder.imageview).execute(current.getImage());
-        holder.tvPokedexNumber.setText(String.valueOf(current.getPokedexNumber()));
+        holder.tvPokedexNumber.setText("#" + String.valueOf(current.getPokedexNumber()));
         holder.tvName.setText(current.getName());
+        holder.tvType.setText(current.getType());
 
         return view;
     }
 
     static class ViewHolder {
-        public ImageView imageview;
         public TextView tvPokedexNumber;
         public TextView tvName;
+        public TextView tvType;
+        public ImageView imageview;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

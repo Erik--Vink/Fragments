@@ -7,6 +7,8 @@ public class Pokemon {
 
     private int pokedexNumber;
     private String name;
+    private String type;
+    private String opinion;
     private String image;
 
     public Pokemon() {
@@ -26,6 +28,22 @@ public class Pokemon {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getOpinion() {
+        return opinion;
+    }
+
+    public void setOpinion(String opinion) {
+        this.opinion = opinion;
     }
 
     public String getImage() {

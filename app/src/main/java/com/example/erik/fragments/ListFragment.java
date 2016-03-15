@@ -51,11 +51,9 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        pokemonList = new ArrayList<Pokemon>();
-        pokemonList = getData();
+        pokemonList = new ArrayList<Pokemon>();
 
-        new JSONAsyncTask().execute("https://api.myjson.com/bins/sp93");
-
+        new JSONAsyncTask().execute(" https://powerful-depths-54671.herokuapp.com/ios/pokemon");
 
         ListView listview = (ListView)getView().findViewById(R.id.pokemon_list);
         pokemonAdapter = new PokemonAdapter(getActivity().getApplicationContext(), R.layout.pokemon_row, pokemonList);
@@ -70,21 +68,6 @@ public class ListFragment extends Fragment {
 //                Toast.makeText(getActivity().getApplicationContext(), pokemonList.get(position).getName(), Toast.LENGTH_LONG).show();
 //            }
 //        });
-    }
-
-
-    private ArrayList<Pokemon> getData() {
-        final ArrayList<Pokemon> pokemonItems = new ArrayList<>();
-
-//        for(int i = 0; i< 10; i++) {
-//            int pokedexnumber = i+1;
-//            Pokemon pokemon = new Pokemon();
-//            pokemon.setPokedexNumber(pokedexnumber);
-//            pokemon.setName("Name");
-//            pokemon.setImage("http://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/"+pokedexnumber+".jpeg");
-//            pokemonItems.add(pokemon);
-//        }
-        return pokemonItems;
     }
 
     class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
@@ -106,17 +89,17 @@ public class ListFragment extends Fragment {
             try {
                 String data = getDataFromUrl(urls[0]);
 
-                JSONObject jsono = new JSONObject(data);
-                JSONArray jarray = jsono.getJSONArray("pokemons");
+                JSONArray jarray = new JSONArray(data);
 
                 for (int i = 0; i < jarray.length(); i++) {
                     JSONObject object = jarray.getJSONObject(i);
 
                     Pokemon pokemon = new Pokemon();
 
-                    pokemon.setPokedexNumber(object.getInt("national-pokedex-number"));
-                    pokemon.setName(object.getString("pokemon-name"));
-                    pokemon.setImage(object.getString("image-url"));
+                    pokemon.setPokedexNumber(object.getInt("pokedexId"));
+                    pokemon.setName(object.getString("name"));
+                    pokemon.setType(object.getString("type"));
+                    pokemon.setImage(object.getString("image"));
 
                     pokemonList.add(pokemon);
                 }

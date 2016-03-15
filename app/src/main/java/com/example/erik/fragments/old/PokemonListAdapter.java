@@ -40,26 +40,26 @@ public class PokemonListAdapter extends BaseAdapter {
         View listItem = convertView;
         ViewHolder holder;
 
-        if(listItem == null) {
-            listItem = layoutInflater.inflate(R.layout.pokemon_list_item, null);
-            holder = new ViewHolder();
-            holder.pokedexNumber = (TextView) listItem.findViewById(R.id.pokedex_number);
-            holder.name = (TextView) listItem.findViewById(R.id.name);
-            holder.type = (TextView) listItem.findViewById(R.id.type);
-            holder.imageView = (ImageView) listItem.findViewById(R.id.image);
-            listItem.setTag(holder);
-        }else{
-            holder = (ViewHolder) listItem.getTag();
-        }
+//        if(listItem == null) {
+//            listItem = layoutInflater.inflate(R.layout.pokemon_list_item, null);
+//            holder = new ViewHolder();
+//            holder.pokedexNumber = (TextView) listItem.findViewById(R.id.pokedex_number);
+//            holder.name = (TextView) listItem.findViewById(R.id.name);
+//            holder.type = (TextView) listItem.findViewById(R.id.type);
+//            holder.imageView = (ImageView) listItem.findViewById(R.id.image);
+//            listItem.setTag(holder);
+//        }else{
+//            holder = (ViewHolder) listItem.getTag();
+//        }
 
-        PokemonModel pokemon = listData.get(position);
-        holder.pokedexNumber.setText(String.valueOf(pokemon.getPokedexNumber()));
-        holder.name.setText(pokemon.getName());
-        holder.type.setText(pokemon.getType());
-
-        if(holder.imageView != null) {
-            new DownloadPokeImageTask(holder.imageView).execute(pokemon.getImageLink());
-        }
+//        PokemonModel pokemon = listData.get(position);
+//        holder.pokedexNumber.setText(String.valueOf(pokemon.getPokedexNumber()));
+//        holder.name.setText(pokemon.getName());
+//        holder.type.setText(pokemon.getType());
+//
+//        if(holder.imageView != null) {
+//            new DownloadPokeImageTask(holder.imageView).execute(pokemon.getImageLink());
+//        }
 
         //Here starts the Async magic!
 //        DownloadPokeImageTask task = new DownloadPokeImageTask((ImageView) listItem.findViewById(R.id.image));
