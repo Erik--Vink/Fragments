@@ -2,14 +2,12 @@ package com.example.erik.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.erik.fragments.old.PokemonModel;
 
 public class DetailFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.erik.fragments;
+package com.example.erik.fragments.old;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+
+import com.example.erik.fragments.R;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -61,7 +61,6 @@ public class ListFragment extends Fragment {
         pokemonAdapter = new PokemonAdapter(getActivity().getApplicationContext(), R.layout.pokemon_row, pokemonList);
 
         listview.setAdapter(pokemonAdapter);
-        Log.v("count", String.valueOf(pokemonAdapter.getCount()));
 //        listview.setOnItemClickListener(new OnItemClickListener() {
 //
 //            @Override
@@ -77,14 +76,14 @@ public class ListFragment extends Fragment {
     private ArrayList<Pokemon> getData() {
         final ArrayList<Pokemon> pokemonItems = new ArrayList<>();
 
-        for(int i = 0; i< 10; i++) {
-            int pokedexnumber = i+1;
-            Pokemon pokemon = new Pokemon();
-            pokemon.setPokedexNumber(pokedexnumber);
-            pokemon.setName("Name");
-            pokemon.setImage("http://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/"+pokedexnumber+".jpeg");
-            pokemonItems.add(pokemon);
-        }
+//        for(int i = 0; i< 10; i++) {
+//            int pokedexnumber = i+1;
+//            Pokemon pokemon = new Pokemon();
+//            pokemon.setPokedexNumber(pokedexnumber);
+//            pokemon.setName("Name");
+//            pokemon.setImage("http://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/"+pokedexnumber+".jpeg");
+//            pokemonItems.add(pokemon);
+//        }
         return pokemonItems;
     }
 
@@ -133,8 +132,7 @@ public class ListFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
-            pokemonAdapter.swapItems(pokemonList);
-//            pokemonAdapter.notifyDataSetChanged();
+            pokemonAdapter.notifyDataSetChanged();
             Log.v("count notify", String.valueOf(pokemonAdapter.getCount()));
             if(result == false)
                 Toast.makeText(getActivity().getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();

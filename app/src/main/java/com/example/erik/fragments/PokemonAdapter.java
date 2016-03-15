@@ -19,13 +19,13 @@ import java.util.List;
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon>{
 
-    private ArrayList<Pokemon> pokemonList;
+    ArrayList<Pokemon> pokemonList;
     LayoutInflater inflater;
     int Resource;
     ViewHolder holder;
 
     public PokemonAdapter(Context context, int resource, ArrayList<Pokemon> objects) {
-        super(context, resource);
+        super(context, resource, objects);
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resource = resource;
         pokemonList = objects;
@@ -49,7 +49,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon>{
 
         holder.imageview.setImageResource(R.drawable.placeholder);
         new DownloadImageTask(holder.imageview).execute(current.getImage());
-        holder.tvPokedexNumber.setText(current.getPokedexNumber());
+        holder.tvPokedexNumber.setText(String.valueOf(current.getPokedexNumber()));
         holder.tvName.setText(current.getName());
 
         return view;
@@ -84,10 +84,5 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon>{
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
-    }
-
-    public void swapItems(ArrayList<Pokemon> pokemonlist){
-        this.pokemonList = pokemonlist;
-        notifyDataSetChanged();
     }
 }

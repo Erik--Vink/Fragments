@@ -10,7 +10,6 @@ public class Pokemon {
     private String image;
 
     public Pokemon() {
-
     }
 
     public int getPokedexNumber() {
