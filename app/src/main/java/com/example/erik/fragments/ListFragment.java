@@ -39,6 +39,7 @@ public class ListFragment extends Fragment {
 
      ArrayList<Pokemon> pokemonList;
      PokemonAdapter pokemonAdapter;
+    private AdapterView.OnItemClickListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class ListFragment extends Fragment {
         pokemonAdapter = new PokemonAdapter(getActivity().getApplicationContext(), R.layout.pokemon_row, pokemonList);
 
         listview.setAdapter(pokemonAdapter);
+        listview.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
 //        listview.setOnItemClickListener(new OnItemClickListener() {
 //
 //            @Override
@@ -70,6 +72,23 @@ public class ListFragment extends Fragment {
 //        });
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof AdapterView.OnItemSelectedListener) {
+            listener = (AdapterView.OnItemClickListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implemenet MyListFragment.OnItemSelectedListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
     class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         ProgressDialog dialog;
@@ -79,7 +98,7 @@ public class ListFragment extends Fragment {
             super.onPreExecute();
             dialog = new ProgressDialog(getActivity());
             dialog.setMessage("Loading, please wait");
-            dialog.setTitle("Connecting server");
+            dialog.setTitle("Collecting pokemons");
             dialog.show();
             dialog.setCancelable(false);
         }
@@ -116,7 +135,6 @@ public class ListFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
             pokemonAdapter.notifyDataSetChanged();
-            Log.v("count notify", String.valueOf(pokemonAdapter.getCount()));
             if(result == false)
                 Toast.makeText(getActivity().getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 

@@ -1,10 +1,13 @@
 package com.example.erik.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.erik.fragments.old.PokemonModel;
+
+import java.io.InputStream;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -28,13 +31,16 @@ public class DetailActivity extends AppCompatActivity {
 //        Intent intent = getIntent();
 //        String link = intent.getStringExtra("SelectedPokemon");
 
+        Intent intent = getIntent();
+        Pokemon pokemon = (Pokemon) intent.getParcelableExtra("SelectedPokemon");
+
         DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
         if (fragment != null && fragment.isInLayout())
         {
-//            fragment.setNewText(link);
-            Bundle bundle = getIntent().getExtras();
-            PokemonModel pokemon = bundle.getParcelable("SelectedPokemon");
-
+////            fragment.setNewText(link);
+//            Bundle bundle = getIntent().getExtras();
+//            Pokemon pokemon = bundle.getParcelable("SelectedPokemon");
+//
             fragment.setDisplayData(pokemon);
 
         }
