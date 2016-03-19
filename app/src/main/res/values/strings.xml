@@ -4,4 +4,11 @@
     <string name="detail_heading">Web Page Detail</string>
     <string name="list_heading">Web Page Listing</string>
     <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="pokemon_pokedexnumber">Pokedexnumber</string>
+    <string name="pokemon_name">Name</string>
+    <string name="pokemon_type">Type</string>
+    <string name="pokemon_opinion">Opinion</string>
+    <string name="save_button">Save</string>
+
 </resources>

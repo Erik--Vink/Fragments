@@ -54,22 +54,13 @@ public class ListFragment extends Fragment {
 
         pokemonList = new ArrayList<Pokemon>();
 
-        new JSONAsyncTask().execute(" https://powerful-depths-54671.herokuapp.com/ios/pokemon");
+        new JSONAsyncTask().execute("https://powerful-depths-54671.herokuapp.com/ios/pokemon");
 
         ListView listview = (ListView)getView().findViewById(R.id.pokemon_list);
         pokemonAdapter = new PokemonAdapter(getActivity().getApplicationContext(), R.layout.pokemon_row, pokemonList);
 
         listview.setAdapter(pokemonAdapter);
         listview.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
-//        listview.setOnItemClickListener(new OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-//                                    long id) {
-//                // TODO Auto-generated method stub
-//                Toast.makeText(getActivity().getApplicationContext(), pokemonList.get(position).getName(), Toast.LENGTH_LONG).show();
-//            }
-//        });
     }
 
     @Override
@@ -79,7 +70,7 @@ public class ListFragment extends Fragment {
             listener = (AdapterView.OnItemClickListener) context;
         } else {
             throw new ClassCastException(context.toString()
-                    + " must implemenet MyListFragment.OnItemSelectedListener");
+                    + " must implemenet ListFragment.OnItemSelectedListener");
         }
     }
 
@@ -119,6 +110,9 @@ public class ListFragment extends Fragment {
                     pokemon.setName(object.getString("name"));
                     pokemon.setType(object.getString("type"));
                     pokemon.setImage(object.getString("image"));
+                    if(!object.isNull("opinion")){
+                        pokemon.setOpinion(object.getString("opinion"));
+                    }
 
                     pokemonList.add(pokemon);
                 }
