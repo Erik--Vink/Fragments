@@ -29,5 +29,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.erik.fragments.MainActivity" />
         </activity>
+        <activity
+            android:name=".PreferencesActivity"
+            android:label="Settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 </manifest>

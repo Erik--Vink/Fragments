@@ -2,6 +2,7 @@ package com.example.erik.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import com.example.erik.fragments.old.PokemonModel;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    private boolean mHasOnePane;
+    private static final int SETTINGS_REQUEST = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(getApplicationContext(), PreferencesActivity.class);
+            startActivity(intent);
+//            SettingsActivity.startThisActivityForResult(this, SETTINGS_REQUEST);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }
