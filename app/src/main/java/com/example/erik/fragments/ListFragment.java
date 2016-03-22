@@ -14,12 +14,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +63,13 @@ public class ListFragment extends Fragment {
 
         listview.setAdapter(pokemonAdapter);
         listview.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        pokemonAdapter.getFilter().filter(String.valueOf(PreferenceManager.getDefaultSharedPreferences(getActivity()).getInt("number_of_pokemons", 151)));
     }
 
     @Override
@@ -128,6 +137,8 @@ public class ListFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
+            //Limit the list
+            pokemonAdapter.getFilter().filter(String.valueOf(PreferenceManager.getDefaultSharedPreferences(getActivity()).getInt("number_of_pokemons", 151)));
             pokemonAdapter.notifyDataSetChanged();
             if(result == false)
                 Toast.makeText(getActivity().getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();

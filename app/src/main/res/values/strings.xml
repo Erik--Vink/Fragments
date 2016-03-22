@@ -11,4 +11,10 @@
     <string name="pokemon_opinion">Opinion</string>
     <string name="save_button">Save</string>
 
+    <string name="settings_dialog_message">Number of pokemons</string>
+    <string name="settings_summary">$1 Pokemon</string>
+    <string name="settings_unit">Pokemon</string>
+    <string name="settings_title">Number of pokemons</string>
+
+
 </resources>

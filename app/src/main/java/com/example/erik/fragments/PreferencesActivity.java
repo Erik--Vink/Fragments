@@ -9,7 +9,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -40,12 +41,35 @@ public class PreferencesActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction().replace(R.id.content_frame, new MyPreferenceFragment()).commit();
     }
 
-    public static class MyPreferenceFragment extends PreferenceFragment {
+    public static class MyPreferenceFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener{
+
+        private SeekBarPreference _seekBarPref;
+
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preference_screen);
+
+            // Get widgets :
+            _seekBarPref = (SeekBarPreference) this.findPreference("number_of_pokemons");
+
+            // Set listener :
+            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+            // Set seekbar summary :
+            int radius = PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getInt("number_of_pokemons", 151);
+            _seekBarPref.setSummary(this.getString(R.string.settings_summary).replace("$1", ""+radius));
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+            // Set seekbar summary :
+            int radius = PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getInt("number_of_pokemons", 151);
+            _seekBarPref.setSummary(this.getString(R.string.settings_summary).replace("$1", ""+radius));
         }
     }
+
+
 
 }
