@@ -81,7 +81,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> implements Filterable 
         public ImageView imageview;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, String, Bitmap> {
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
         String url;
 
