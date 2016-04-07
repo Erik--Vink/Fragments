@@ -56,7 +56,7 @@ public class ListFragment extends Fragment {
 
         pokemonList = new ArrayList<Pokemon>();
 
-        new JSONAsyncTask().execute("https://powerful-depths-54671.herokuapp.com/ios/pokemon");
+        new JSONAsyncTask().execute("https://powerful-depths-54671.herokuapp.com/simple");
 
         ListView listview = (ListView)getView().findViewById(R.id.pokemon_list);
         pokemonAdapter = new PokemonAdapter(getActivity().getApplicationContext(), R.layout.pokemon_row, pokemonList);
